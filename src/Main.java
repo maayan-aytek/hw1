@@ -48,16 +48,13 @@ public class Main {
 
         for (int i = 0; i < strLen; i++){
             countConsecutive++;
-            if (i + 1 >= strLen || stringToCompress.charAt(i) != stringToCompress.charAt(i+1)){
+
+            /** Checks if current char in stringToCompress is different from next char, or out of bound. */
+            if (i + 1 >= strLen || stringToCompress.charAt(i) != stringToCompress.charAt(i + 1)){
                 compressedString = compressedString + stringToCompress.charAt(i) + countConsecutive;
                 countConsecutive = 0;
             }
         }
-
-        /*
-        TODO: Your code for part B1 is here...
-        Note: you may change the given code, but you must not change the signature of the method.
-         */
 
         return compressedString;
     }
@@ -79,15 +76,21 @@ public class Main {
         String tempStr = "", tempNumber = "";
 
         for (int i = 0; i < strLen; i++) {
-            if (isNumber(compressedString.charAt(i))) {
+            if (checkIsNumber(compressedString.charAt(i))) {
                 tempNumber = "";
-                for (; i < strLen && isNumber(compressedString.charAt(i)); i++ ) {
+
+                /** Updates tempNumber to number of wanted sequence. */
+                for (; i < strLen && checkIsNumber(compressedString.charAt(i)); i++ ) {
                     tempNumber = tempNumber + compressedString.charAt(i);
-                    if (i + 1 < strLen && !isNumber(compressedString.charAt(i + 1)))
+
+                    /** Checks if char is no longer a number. */
+                    if (i + 1 < strLen && !checkIsNumber(compressedString.charAt(i + 1)))
                         break;
                 }
 
                 int multiplyNum = Integer.parseInt(tempNumber);
+
+                /** Adds current sequence multipleNum times- number after sequence. */
                 for (int j = 0; j < multiplyNum; j++)
                     decompressString = decompressString + tempStr;
                 tempStr = "";
@@ -97,16 +100,16 @@ public class Main {
             }
         }
 
-
-        /*
-        TODO: Your code for part B2 is here...
-        Note: you may change the given code, but you must not change the signature of the method.
-         */
-
         return decompressString;
     }
 
-    public static boolean isNumber(char c) {
+    /**
+     * Checks whether a given char is number
+     *
+     * @param c is a given character
+     * @return True if c is number, false otherwise
+     */
+    public static boolean checkIsNumber(char c) {
         if(!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))
             return true;
         return false;
