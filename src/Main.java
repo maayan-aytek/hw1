@@ -83,7 +83,7 @@ public class Main {
                 for (; i < strLen && checkIsNumber(compressedString.charAt(i)); i++ ) {
                     tempNumber = tempNumber + compressedString.charAt(i);
 
-                    /** Checks if char is no longer a number. */
+                    /** Checks if the next char is no longer a number, in that case we won't increase i. */
                     if (i + 1 < strLen && !checkIsNumber(compressedString.charAt(i + 1)))
                         break;
                 }
